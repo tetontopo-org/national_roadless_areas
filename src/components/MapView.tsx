@@ -16,6 +16,8 @@ import {
 } from "../config";
 // Removed late fitBounds/easeTo imports to prevent post-load camera jump
 import { buildPopupHTML } from "../utils/popup";
+import { addMapSources } from "../utils/mapSources";
+
 import { LegendControl } from "./controls/LegendControl";
 import { SurveyControl } from "./controls/SurveyControl";
 import { PitchControl } from "./controls/PitchControl";
@@ -67,48 +69,11 @@ export default function MapView() {
   useEffect(() => {
     if (!ready || !map) return;
 
-    const m = map as mapboxgl.Map; // <- capture non-null ONCE for this effect
+    const m = map as mapboxgl.Map; //
     setNote("Basemap loaded. Adding sources + layers…");
 
     // Add sources
-    // Note: Layers will be added above the 3D terrain that was set up in useMapbox
-
-    //roadless source
-    if (!m.getSource("roadless-src")) {
-      m.addSource("roadless-src", {
-        type: "vector",
-        url: `mapbox://${ROADLESS_TILESET_ID}`,
-      });
-    }
-
-    //pct source (local)
-    if (!m.getSource("pct")) {
-      m.addSource("pct", {
-        type: "geojson",
-        data: "/data/pct_or_simplified.geojson", // from earlier step
-        generateId: true,
-      });
-    }
-
-    // Trails source (local)
-    if (!map.getSource("oregon-trails")) {
-      map.addSource("oregon-trails", {
-        type: "geojson",
-        // If you placed your file under public/data/, this path will work at runtime
-        data: "/data/Oregon_trails.geojson",
-        // promoteId lets us reference a stable id in events/filters
-        promoteId: "OBJECTID_1",
-      });
-    }
-
-    // Congressional Districts source (local)
-    if (!map.getSource("congressional-districts")) {
-      map.addSource("congressional-districts", {
-        type: "geojson",
-        data: "/data/OR_Congressional_Districts.geojson",
-        generateId: true,
-      });
-    }
+    addMapSources(m);
 
     //first symbol
     const firstSymbol = m
