@@ -1,0 +1,732 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+.map-root {
+  position: relative;
+  height: 100%;
+}
+#map {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Map Title Styling */
+.map-title {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: inline-flex;
+  width: max-content;
+}
+.map-title__text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #111827;
+  pointer-events: none;
+}
+.map-title__sub {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: #4b5563;
+  pointer-events: none;
+}
+
+.survey-control {
+  position: absolute;
+  bottom: 170px;
+  right: 12px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.survey-btn {
+  background: #df2700;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font: 600 17px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: block;
+  text-align: center;
+  transition: all 0.2s ease;
+  min-width: 170px;
+  pointer-events: auto;
+}
+.survey-btn:hover {
+  background: #c42400;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Pitch Control Button */
+.pitch-btn {
+  background: #fff;
+  color: #404040;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s ease;
+}
+
+.pitch-btn:hover {
+  background: #f8f9fa;
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pitch-btn:active {
+  background: #e9ecef;
+  transform: translateY(1px);
+}
+
+.pitch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pitch-btn--3d {
+  background: #393b3c;
+  color: #fff;
+  border-color: #393b3c;
+}
+
+.pitch-btn--3d:hover {
+  background: #393b3c;
+  border-color: #393b3c;
+}
+
+/* Sources Control Container */
+.sources-control {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sources-control--top-left {
+  top: 12px;
+  left: 12px;
+}
+
+.sources-control--top-right {
+  top: 11px;
+  right: 60px;
+}
+
+.sources-control--bottom-left {
+  bottom: 65px;
+  left: 11px;
+}
+
+.sources-control--bottom-right {
+  bottom: 12px;
+  right: 12px;
+}
+
+/* Search Control Container */
+.search-control {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.search-control--top-left {
+  top: 70px;
+  left: 12px;
+}
+
+.search-control--top-right {
+  top: 12px;
+  right: 12px;
+}
+
+.search-control--bottom-left {
+  bottom: 12px;
+  left: 12px;
+}
+
+.search-control--bottom-right {
+  bottom: 12px;
+  right: 12px;
+}
+
+/* Search Input Container */
+.search-input-container {
+  position: relative;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.search-input-container:focus-within {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.search-input {
+  width: 300px;
+  padding: 12px 40px 12px 16px;
+  border: none;
+  background: transparent;
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #111827;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #6b7280;
+}
+
+.search-loading {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.search-clear:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Search Results */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.search-result:last-child {
+  border-bottom: none;
+}
+
+.search-result:hover,
+.search-result--selected {
+  background: #f8fafc;
+}
+
+.search-result-icon {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.search-result-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-result-name {
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #111827;
+  font-weight: 500;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-category {
+  font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-no-results {
+  padding: 16px;
+  text-align: center;
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #6b7280;
+}
+
+/* Maki Icons (simplified icon system) */
+.maki {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.maki-marker {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%236b7280' d='M7.5 0C3.36 0 0 3.36 0 7.5S3.36 15 7.5 15 15 11.64 15 7.5 11.64 0 7.5 0zm0 11.25c-2.07 0-3.75-1.68-3.75-3.75S5.43 3.75 7.5 3.75 11.25 5.43 11.25 7.5 9.57 11.25 7.5 11.25z'/%3E%3C/svg%3E");
+}
+
+.maki-mountain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%236b7280' d='M7.5 2L2 10h11L7.5 2zm0 3L5 10h5L7.5 5z'/%3E%3C/svg%3E");
+}
+
+.maki-water {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%236b7280' d='M7.5 1C5.57 1 4 2.57 4 4.5S5.57 8 7.5 8 11 6.43 11 4.5 9.43 1 7.5 1zm0 5C6.12 6 5 4.88 5 3.5S6.12 1 7.5 1 10 2.12 10 3.5 8.88 6 7.5 6z'/%3E%3C/svg%3E");
+}
+
+.maki-park {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%236b7280' d='M7.5 1L2 6v8h11V6L7.5 1zm0 2L4 6v6h7V6L7.5 3z'/%3E%3C/svg%3E");
+}
+
+.maki-city {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%236b7280' d='M2 2v11h11V2H2zm2 2h7v2H4V4zm0 3h7v2H4V7zm0 3h7v2H4v-2z'/%3E%3C/svg%3E");
+}
+
+/* Sources Control Button */
+.sources-btn {
+  background: #fff;
+  color: #404040;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  height: 36px;
+  transition: all 0.2s ease;
+  position: relative;
+  pointer-events: auto;
+}
+
+.sources-btn:hover {
+  background: #f8f9fa;
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sources-btn:active {
+  background: #e9ecef;
+  transform: translateY(1px);
+}
+
+.sources-btn--active {
+  background: #393b3c;
+  color: #fff;
+  border-color: #393b3c;
+}
+
+.sources-btn--active:hover {
+  background: #393b3c;
+  border-color: #393b3c;
+}
+
+/* Sources Popup */
+.sources-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 450px;
+  max-width: 550px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* Bottom-left popup positioning */
+.sources-control--bottom-left .sources-popup {
+  top: auto;
+  bottom: 100%;
+  right: auto;
+  left: 0;
+  margin-top: 0;
+  margin-bottom: 8px;
+  transform: translateY(10px);
+}
+
+.sources-control--bottom-left .sources-popup--open {
+  transform: translateY(0);
+}
+
+.sources-popup--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.sources-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sources-popup-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.sources-popup-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.sources-popup-close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.sources-popup-content {
+  padding: 16px;
+  font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #374151;
+}
+
+.sources-popup-content p {
+  margin: 0 0 12px 0;
+}
+
+.sources-popup-content p:last-child {
+  margin-bottom: 0;
+}
+
+.sources-popup-content ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.sources-popup-content li {
+  margin: 8px 0;
+}
+
+.sources-popup-content a {
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sources-popup-content a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.legend-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: 12px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  min-width: 180px;
+}
+.legend-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.legend-swatch {
+  width: 32px;
+  height: 16px;
+  display: inline-block;
+}
+
+/* Logos */
+.logos {
+  position: absolute;
+  z-index: 3; /* above map and controls */
+  display: flex;
+  align-items: center;
+  /* don't block map interactions except on the logos themselves */
+  pointer-events: none;
+  display: inline-flex; /* was flex; inline keeps width to content */
+  width: max-content;
+}
+.logo-link,
+.logos img {
+  pointer-events: auto; /* clickable */
+}
+
+/* Corner positions (like Mapbox control corners) */
+.logos--tl {
+  top: 12px;
+  left: 12px;
+}
+.logos--tr {
+  top: 12px;
+  right: 12px;
+}
+.logos--bl {
+  bottom: 12px;
+  left: 12px;
+}
+.logos--br {
+  bottom: 12px;
+  right: 12px;
+}
+.logos--bc {
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%); /* centers horizontally */
+  right: auto;
+  top: auto;
+}
+
+/* Optional: subtle card bg behind logos (toggle by adding `logos--card` class) */
+.logos.logos--card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Media handling for smaller screens*/
+@media (max-width: 520px) {
+  /* Map Title smaller */
+  .map-title {
+    padding: 6px 10px;
+  }
+  .map-title__text {
+    font-size: 1rem;
+  }
+  .map-title__sub {
+    font-size: 0.8rem;
+  }
+
+  /* Search control positioning for mobile */
+  .search-control--top-left {
+    top: 60px;
+  }
+
+  /* Logos smaller */
+  .logos img {
+    height: 32px !important;
+  }
+
+  /* Pitch control smaller on mobile */
+  .pitch-btn {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+  }
+
+  /* Sources control smaller on mobile */
+  .sources-btn {
+    min-width: 60px;
+    height: 32px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  /* Sources popup smaller on mobile */
+  .sources-popup {
+    min-width: 350px;
+    max-width: 400px;
+  }
+
+  /* Hide Legend on mobile */
+  .mapboxgl-ctrl-group:has(.legend-card),
+  .mapboxgl-ctrl:has(.legend-card) {
+    display: none !important;
+  }
+
+  /* Move survey button to bottom-right when legend is hidden */
+  .survey-control {
+    bottom: 20px !important;
+  }
+}
+
+/* Add these responsive rules at the end of your CSS file */
+
+/* For smaller embedded views */
+@media (max-height: 600px) {
+  .map-title {
+    top: 8px;
+    left: 8px;
+    padding: 6px 10px;
+  }
+
+  .map-title__text {
+    font-size: 1rem;
+  }
+
+  .map-title__sub {
+    font-size: 0.8rem;
+  }
+
+  .survey-control {
+    bottom: 140px;
+  }
+
+  .survey-btn {
+    padding: 10px 14px;
+    font-size: 15px;
+    min-width: 150px;
+  }
+
+  /* Hide Legend on smaller embedded views */
+  .mapboxgl-ctrl-group:has(.legend-card),
+  .mapboxgl-ctrl:has(.legend-card) {
+    display: none !important;
+  }
+
+  /* Move survey button to bottom-right when legend is hidden */
+  .survey-control {
+    bottom: 20px !important;
+  }
+}
+
+/* For very small embedded views */
+@media (max-height: 400px) {
+  .map-title {
+    display: none; /* Hide title in very small embeds */
+  }
+
+  .survey-control {
+    bottom: 120px;
+  }
+
+  .survey-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 130px;
+  }
+
+  /* Hide Legend on very small embedded views */
+  .mapboxgl-ctrl-group:has(.legend-card),
+  .mapboxgl-ctrl:has(.legend-card) {
+    display: none !important;
+  }
+
+  /* Move survey button to bottom-right when legend is hidden */
+  .survey-control {
+    bottom: 20px !important;
+  }
+}
