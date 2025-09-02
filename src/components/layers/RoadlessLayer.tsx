@@ -19,7 +19,7 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
     if (!map.getSource("roadless-src")) {
       map.addSource("roadless-src", {
         type: "geojson",
-        data: "/data/roadless_national.geojson",
+        data: "/data/RL_national_simplified.json",
       });
     }
 
