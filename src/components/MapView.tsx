@@ -38,7 +38,7 @@ export default function MapView() {
     const m = map as mapboxgl.Map;
     m.addControl(new PitchControl(), "top-right");
     m.addControl(new SurveyControl(), "bottom-right");
-    m.addControl(new LegendControl(), "bottom-right");
+    // LegendControl is now a React component, so we don't add it as a Mapbox control
   }, [ready, map]);
 
   // Add sources/layers + behavior
@@ -68,6 +68,18 @@ export default function MapView() {
 
       {/* Sources Control */}
       <SourcesControl position="bottom-left" />
+
+      {/* Legend Control */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "12px",
+          right: "12px",
+          zIndex: 3,
+        }}
+      >
+        <LegendControl map={map} />
+      </div>
 
       {/* Logos overlay goes here */}
       <Logos

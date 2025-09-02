@@ -1,12 +1,7 @@
 import { useEffect, useRef } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
 import { LayerComponentProps } from "./layerTypes";
-import {
-  ROADLESS_TILESET_ID,
-  ROADLESS_SOURCE_LAYER,
-  OVERLAY_COLOR,
-  FILL_OPACITY,
-} from "../../config";
+import { OVERLAY_COLOR, FILL_OPACITY } from "../../config";
 import { buildPopupHTML } from "../../utils/popup";
 import * as turf from "@turf/turf";
 import { ID_KEYS, NAME_KEYS } from "../../config";
@@ -23,8 +18,8 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
     // Add source
     if (!map.getSource("roadless-src")) {
       map.addSource("roadless-src", {
-        type: "vector",
-        url: `mapbox://${ROADLESS_TILESET_ID}`,
+        type: "geojson",
+        data: "/data/roadless_national.geojson",
       });
     }
 
@@ -40,7 +35,6 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
           id: "roadless-fill",
           type: "fill",
           source: "roadless-src",
-          "source-layer": ROADLESS_SOURCE_LAYER,
           filter: ["==", ["geometry-type"], "Polygon"],
           paint: {
             "fill-color": OVERLAY_COLOR,
@@ -60,7 +54,6 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
           id: "roadless-line",
           type: "line",
           source: "roadless-src",
-          "source-layer": ROADLESS_SOURCE_LAYER,
           filter: [
             "any",
             ["==", ["geometry-type"], "LineString"],

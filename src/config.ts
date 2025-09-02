@@ -9,10 +9,6 @@ export const CUSTOM_STYLE_OVERRIDES = {
   forest: "#b5cfa5", // Slightly deeper muted green for forest
 };
 
-// Tilesets + source-layer names
-export const ROADLESS_TILESET_ID = "tetontopo.34pdvs6z";
-export const ROADLESS_SOURCE_LAYER = "Roadless_areas-23lokp";
-
 // Styling
 export const OVERLAY_COLOR = "#EB9200 ";
 export const FILL_OPACITY = 0.55;
