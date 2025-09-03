@@ -58,6 +58,58 @@ export const OregonTrailsLayer: React.FC<LayerComponentProps> = ({
       );
     }
 
+    // Add trail labels layer
+    if (!map.getLayer("oregon-trails-labels")) {
+      map.addLayer(
+        {
+          id: "oregon-trails-labels",
+          type: "symbol",
+          source: "oregon-trails",
+          minzoom: 6, // Only show labels when zoomed in enough
+          layout: {
+            "text-field": [
+              "coalesce",
+              ["get", "TRAIL_NAME"],
+              ["get", "NAME"],
+              ["get", "TRAIL"],
+              "Trail"
+            ],
+            "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+            "text-size": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              12,
+              10,
+              14,
+              12,
+              16,
+              14
+            ],
+            "text-max-width": 8,
+            "text-line-height": 1.2,
+            "text-letter-spacing": 0.1,
+            "text-justify": "center",
+            "text-anchor": "center",
+            "text-padding": 2,
+            "text-allow-overlap": false,
+            "text-ignore-placement": false,
+            "symbol-placement": "line",
+            "symbol-spacing": 200,
+            "symbol-avoid-edges": true
+          },
+          paint: {
+            "text-color": "#0b1f44",
+            "text-halo-color": "#ffffff",
+            "text-halo-width": 1,
+            "text-halo-blur": 0.5,
+            "text-opacity": 0.9
+          }
+        },
+        "oregon-trails-line" // Place labels above the line layer
+      );
+    }
+    
     // Create popup
     popupRef.current = new mapboxgl.Popup({
       closeButton: true,
