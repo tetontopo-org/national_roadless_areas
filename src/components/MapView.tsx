@@ -13,7 +13,7 @@ import {
   RoadlessLayer,
   PCTLayer,
   OregonTrailsLayer,
-  CongressionalDistrictsLayer,
+  // CongressionalDistrictsLayer,
 } from "./layers";
 
 import MapTitle from "./MapTitle";
@@ -106,12 +106,12 @@ export default function MapView() {
           <RoadlessLayer map={map} ready={ready} />
           <PCTLayer map={map} ready={ready} />
           <OregonTrailsLayer map={map} ready={ready} />
-          <CongressionalDistrictsLayer
+          {/* <CongressionalDistrictsLayer
             map={map}
             ready={ready}
             selectedDistrictId={selectedDistrictId}
             setSelectedDistrictId={setSelectedDistrictId}
-          />
+          /> */}
         </>
       )}
     </div>
