@@ -6,11 +6,17 @@ type LogoItem = {
   href?: string;
   height?: number;
   card?: boolean;
+  cardColor?: string;
 };
 
 type Props = {
   items: LogoItem[];
-  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right" | "bottom-center";
+  position?:
+    | "top-left"
+    | "top-right"
+    | "bottom-left"
+    | "bottom-right"
+    | "bottom-center";
   gap?: number;
   className?: string;
 };
@@ -31,7 +37,13 @@ export default function Logos({
   };
 
   // reset all edges first to avoid leftovers
-  Object.assign(style, { top: "auto", right: "auto", bottom: "auto", left: "auto", transform: "none" });
+  Object.assign(style, {
+    top: "auto",
+    right: "auto",
+    bottom: "auto",
+    left: "auto",
+    transform: "none",
+  });
 
   switch (position) {
     case "top-left":
@@ -47,49 +59,59 @@ export default function Logos({
       Object.assign(style, { bottom: 12, right: 12 });
       break;
     case "bottom-center":
-      Object.assign(style, { bottom: 12, left: "50%", transform: "translateX(-50%)" });
+      Object.assign(style, {
+        bottom: 12,
+        left: "50%",
+        transform: "translateX(-50%)",
+      });
       break;
   }
 
   return (
     <div className={`logos ${className}`} style={style}>
       {items.map((it, i) => {
-  const img = (
-    <img
-      key={i}
-      src={it.src}
-      alt={it.alt}
-      style={{
-        height: (it.height ?? 40) + "px",
-        width: "auto",
-        objectFit: "contain",
-        pointerEvents: "auto",
-      }}
-    />
-  );
+        const img = (
+          <img
+            key={i}
+            src={it.src}
+            alt={it.alt}
+            style={{
+              height: (it.height ?? 40) + "px",
+              width: "auto",
+              objectFit: "contain",
+              pointerEvents: "auto",
+            }}
+          />
+        );
 
-  const content = it.href ? (
-    <a
-      key={i}
-      href={it.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ pointerEvents: "auto" }}
-    >
-      {img}
-    </a>
-  ) : (
-    img
-  );
+        const content = it.href ? (
+          <a
+            key={i}
+            href={it.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ pointerEvents: "auto" }}
+          >
+            {img}
+          </a>
+        ) : (
+          img
+        );
 
-  return it.card ? (
-    <div key={i} className="logo-card">
-      {content}
-    </div>
-  ) : (
-    content
-  );
-})}
+        return it.card ? (
+          <div
+            key={i}
+            className="logo-card"
+            style={{
+              background: it.cardColor || "rgba(255, 255, 255, 0.92)",
+            }}
+          >
+            {content}
+          </div>
+        ) : (
+          content
+        );
+      })}
     </div>
   );
 }

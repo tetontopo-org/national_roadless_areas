@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { useMapbox } from "../hooks/useMapbox";
-import { MAPBOX_STYLE_URL } from "../config";
+import {
+  MAPBOX_STYLE_URL,
+  SC_LOGO_CARD_COLOR,
+  TT_LOGO_CARD_COLOR,
+} from "../config";
 import { LegendControl } from "./controls/LegendControl";
 import { SurveyControl } from "./controls/SurveyControl";
 import { PitchControl } from "./controls/PitchControl";
@@ -19,7 +23,7 @@ import {
 import MapTitle from "./MapTitle";
 import Logos from "./Logos";
 import ttLogo from "../assets/logos/tetontopo_logo.png";
-import partnerLogo from "../assets/logos/SC-Oregon-Chapter-Logo_Horizontal_Color.png";
+import sclogo from "../assets/logos/SC Logo_Horiz Web White.png";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN as string;
 
@@ -86,13 +90,21 @@ export default function MapView() {
         position="bottom-center"
         gap={20}
         items={[
-          { src: ttLogo, alt: "TetonTopo", href: "https://tetontopo.com" },
           {
-            src: partnerLogo,
-            alt: "Sierra Club Oregon Chapter",
-            href: "https://www.sierraclub.org/oregon",
-            height: 34,
+            src: ttLogo,
+            alt: "TetonTopo",
+            href: "https://tetontopo.com",
+            height: 50,
             card: true,
+            cardColor: TT_LOGO_CARD_COLOR, // Custom blue background for the card
+          },
+          {
+            src: sclogo,
+            alt: "Sierra Club National",
+            href: "https://www.sierraclub.org/",
+            height: 50,
+            card: true,
+            cardColor: SC_LOGO_CARD_COLOR,
           },
         ]}
       />
@@ -106,6 +118,7 @@ export default function MapView() {
           <RoadlessLayer map={map} ready={ready} />
           <PCTLayer map={map} ready={ready} />
           <OregonTrailsLayer map={map} ready={ready} />
+          //
           {/* <CongressionalDistrictsLayer
             map={map}
             ready={ready}
