@@ -65,7 +65,7 @@ export default function MapView() {
     <div className="map-root">
       <div id="map" />
       {/*Map title overlay*/}
-      <MapTitle title="Oregon Roadless Areas" />
+      <MapTitle title="National Roadless Areas" />
 
       {/* Search Control */}
       <SearchControl position="top-left" map={map} />
