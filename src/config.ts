@@ -14,6 +14,7 @@ export const OVERLAY_COLOR = "#EB9200 ";
 export const FILL_OPACITY = 0.55;
 export const PCT_COLOR = "#003B4A"; // original color: #0b5d1e
 export const OREGON_TRAILS_COLOR = "#008294";
+export const NATIONAL_TRAILS_COLOR = "#008294"; // Blue SC color for national trails
 export const CONGRESSIONAL_DISTRICTS_COLOR = "#000000"; // Gray color for congressional districts
 export const SC_LOGO_CARD_COLOR = "#508142"; // SC branding web green
 export const TT_LOGO_CARD_COLOR = "#073556"; // TT blue

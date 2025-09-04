@@ -17,6 +17,7 @@ import {
   RoadlessLayer,
   PCTLayer,
   OregonTrailsLayer,
+  NationalTrailsLayer,
   // CongressionalDistrictsLayer,
 } from "./layers";
 
@@ -118,6 +119,7 @@ export default function MapView() {
           <RoadlessLayer map={map} ready={ready} />
           <PCTLayer map={map} ready={ready} />
           <OregonTrailsLayer map={map} ready={ready} />
+          <NationalTrailsLayer map={map} ready={ready} />
           //
           {/* <CongressionalDistrictsLayer
             map={map}
