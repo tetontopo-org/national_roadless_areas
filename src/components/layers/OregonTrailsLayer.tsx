@@ -74,7 +74,7 @@ export const OregonTrailsLayer: React.FC<LayerComponentProps> = ({
               ["get", "TRAIL"],
               "Trail"
             ],
-            "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+            "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
             "text-size": [
               "interpolate",
               ["linear"],
@@ -103,7 +103,7 @@ export const OregonTrailsLayer: React.FC<LayerComponentProps> = ({
             "text-halo-color": "#ffffff",
             "text-halo-width": 1,
             "text-halo-blur": 0.5,
-            "text-opacity": 0.9
+            "text-opacity": 1
           }
         },
         "oregon-trails-line" // Place labels above the line layer
