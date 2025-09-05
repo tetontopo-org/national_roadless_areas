@@ -5,6 +5,7 @@ import {
   FILL_OPACITY,
   PCT_COLOR,
   OREGON_TRAILS_COLOR,
+  NATIONAL_TRAILS_COLOR,
   // CONGRESSIONAL_DISTRICTS_COLOR,
 } from "../../config";
 
@@ -17,6 +18,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
     roadless: true,
     pct: true,
     oregonTrails: true,
+    nationalTrails: true,
     // congressionalDistricts: true,
   });
 
@@ -47,6 +49,8 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
         return ["pct-line"];
       case "oregonTrails":
         return ["oregon-trails-line"];
+      case "nationalTrails":
+        return ["national-trails-line", "national-trails-labels"];
       // case "congressionalDistricts":
       //   return ["congressional-districts-fill", "congressional-districts-line"];
       default:
@@ -69,7 +73,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
       <div className="legend-card">
         <div className="legend-title">Legend</div>
 
-        <div
+        {/* <div
           className={`legend-item ${
             !layerVisibility.pct ? "legend-item--disabled" : ""
           }`}
@@ -101,7 +105,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
           <span style={{ marginLeft: "auto", fontSize: "10px", color: "#666" }}>
             {layerVisibility.pct ? "●" : "○"}
           </span>
-        </div>
+        </div> */}
 
         <div
           className={`legend-item ${
@@ -141,6 +145,41 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
 
         <div
           className={`legend-item ${
+            !layerVisibility.nationalTrails ? "legend-item--disabled" : ""
+          }`}
+          onClick={() => toggleLayer("nationalTrails")}
+          style={{ cursor: "pointer" }}
+          title="Click to toggle National Trails layer visibility"
+        >
+          <span className="legend-swatch" aria-hidden="true">
+            <svg
+              width="32"
+              height="16"
+              viewBox="0 0 32 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="2"
+                y1="8"
+                x2="30"
+                y2="8"
+                stroke={NATIONAL_TRAILS_COLOR}
+                strokeWidth="3"
+                strokeLinecap="round"
+                opacity={getOpacity("nationalTrails")}
+              />
+            </svg>
+          </span>
+          <span style={getDisabledStyle("nationalTrails")}>
+            National Trails
+          </span>
+          <span style={{ marginLeft: "auto", fontSize: "10px", color: "#666" }}>
+            {layerVisibility.nationalTrails ? "●" : "○"}
+          </span>
+        </div>
+
+        {/* <div
+          className={`legend-item ${
             !layerVisibility.oregonTrails ? "legend-item--disabled" : ""
           }`}
           onClick={() => toggleLayer("oregonTrails")}
@@ -170,7 +209,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
           <span style={{ marginLeft: "auto", fontSize: "10px", color: "#666" }}>
             {layerVisibility.oregonTrails ? "●" : "○"}
           </span>
-        </div>
+        </div> */}
 
         {/* <div
           className={`legend-item ${

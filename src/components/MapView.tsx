@@ -117,10 +117,10 @@ export default function MapView() {
       {ready && map && (
         <>
           <RoadlessLayer map={map} ready={ready} />
-          <PCTLayer map={map} ready={ready} />
-          <OregonTrailsLayer map={map} ready={ready} />
+          {/* <PCTLayer map={map} ready={ready} /> */}
+          {/* <OregonTrailsLayer map={map} ready={ready} /> */}
           <NationalTrailsLayer map={map} ready={ready} />
-          //
+
           {/* <CongressionalDistrictsLayer
             map={map}
             ready={ready}
