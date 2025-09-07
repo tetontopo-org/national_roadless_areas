@@ -1,4 +1,4 @@
-export const MAPBOX_STYLE_URL = "mapbox://styles/mapbox/outdoors-v12";
+export const MAPBOX_STYLE_URL = "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy";
 
 // Subtle customizations to tone down the bright greens in outdoors basemap
 export const CUSTOM_STYLE_OVERRIDES = {

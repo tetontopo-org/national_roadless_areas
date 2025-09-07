@@ -52,6 +52,7 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
             "line-opacity": 0.9,
             "line-translate": [0, 0],
             "line-translate-anchor": "map",
+            "line-dasharray": [2, 2],
           },
         },
         "roadless-fill"
