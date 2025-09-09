@@ -33,6 +33,7 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
           layout: {
             "line-cap": "round",
             "line-join": "round",
+            "symbol-elevation-reference": "hd-road-markup",
           },
           paint: {
             "line-color": NATIONAL_TRAILS_COLOR,
@@ -40,22 +41,26 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
               "interpolate",
               ["linear"],
               ["zoom"],
-              10,
-              0.8,
-              12,
+              6,
               1.5,
-              14,
+              8,
+              2.0,
+              10,
               2.5,
+              12,
+              3.0,
+              14,
+              3.5,
               16,
-              4,
+              4.5,
             ],
             "line-opacity": 0.9,
-            "line-translate": [0, 0],
+            "line-translate": [0, -1],
             "line-translate-anchor": "map",
             "line-dasharray": [2, 2],
           },
         },
-        "roadless-fill"
+        "roadless-fill" // Place lines above fill layer
       );
     }
 
@@ -70,10 +75,39 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
           layout: {
             "text-field": [
               "coalesce",
-              ["get", "TRAIL_NAME"],
-              ["get", "NAME"],
-              ["get", "TRAIL"],
-              "Trail"
+              [
+                "concat",
+                [
+                  "upcase",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      ["get", "TRAIL_NAME"],
+                      ["get", "NAME"],
+                      ["get", "TRAIL"],
+                      "Trail",
+                    ],
+                    0,
+                    1,
+                  ],
+                ],
+                [
+                  "downcase",
+                  [
+                    "slice",
+                    [
+                      "coalesce",
+                      ["get", "TRAIL_NAME"],
+                      ["get", "NAME"],
+                      ["get", "TRAIL"],
+                      "Trail",
+                    ],
+                    1,
+                  ],
+                ],
+              ],
+              "Trail",
             ],
             "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
             "text-size": [
@@ -85,32 +119,37 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
               14,
               12,
               16,
-              14
+              14,
             ],
             "text-max-width": 8,
             "text-line-height": 1.2,
             "text-letter-spacing": 0.1,
-            "text-justify": "center",
+            "text-justify": "auto",
             "text-anchor": "center",
             "text-padding": 2,
             "text-allow-overlap": false,
             "text-ignore-placement": false,
             "symbol-placement": "line",
+            "text-max-angle": 20,
+            "text-keep-upright": true,
+            "text-pitch-alignment": "viewport",
+            "text-rotation-alignment": "map",
             "symbol-spacing": 200,
-            "symbol-avoid-edges": true
+            "symbol-avoid-edges": true,
+            "text-offset": [0, -1],
           },
           paint: {
-            "text-color": "#0b1f44",
+            "text-color": "#000000",
             "text-halo-color": "#ffffff",
             "text-halo-width": 1,
             "text-halo-blur": 0.5,
-            "text-opacity": 1
-          }
+            "text-opacity": 1,
+          },
         },
         "national-trails-line" // Place labels above the line layer
       );
     }
-    
+
     // Create popup
     popupRef.current = new mapboxgl.Popup({
       closeButton: true,
