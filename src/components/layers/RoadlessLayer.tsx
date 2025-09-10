@@ -15,60 +15,101 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
   useEffect(() => {
     if (!ready || !map) return;
 
-    // Add source
-    if (!map.getSource("roadless-src")) {
-      map.addSource("roadless-src", {
-        type: "geojson",
-        data: "/data/RL_national_simplified.json",
-      });
-    }
+    // Load and combine both roadless datasets
+    const loadCombinedData = async (): Promise<void> => {
+      try {
+        // Load both datasets
+        const [nationalResponse, alaskaResponse] = await Promise.all([
+          fetch("/data/RL_national_simplified.json"),
+          fetch("/data/AK-RA-Simple.json"),
+        ]);
 
-    // Find first symbol layer for positioning
-    const firstSymbol = map
-      .getStyle()
-      .layers?.find((l) => l.type === "symbol")?.id;
+        const nationalData = await nationalResponse.json();
+        const alaskaData = await alaskaResponse.json();
 
-    // Add roadless fill layer
-    if (!map.getLayer("roadless-fill")) {
-      map.addLayer(
-        {
-          id: "roadless-fill",
-          type: "fill",
-          source: "roadless-src",
-          filter: ["==", ["geometry-type"], "Polygon"],
-          paint: {
-            "fill-color": OVERLAY_COLOR,
-            "fill-opacity": FILL_OPACITY,
-            "fill-translate": [0, 0],
-            "fill-translate-anchor": "map",
+        // Combine the features
+        const combinedData = {
+          type: "FeatureCollection" as const,
+          features: [...nationalData.features, ...alaskaData.features],
+        };
+
+        // Add or update source
+        if (map.getSource("roadless-src")) {
+          (map.getSource("roadless-src") as mapboxgl.GeoJSONSource).setData(
+            combinedData
+          );
+        } else {
+          map.addSource("roadless-src", {
+            type: "geojson",
+            data: combinedData,
+          });
+        }
+      } catch (error) {
+        console.error("Error loading roadless data:", error);
+        // Fallback to just national data
+        if (!map.getSource("roadless-src")) {
+          map.addSource("roadless-src", {
+            type: "geojson",
+            data: "/data/RL_national_simplified.json",
+          });
+        }
+      }
+    };
+
+    // Function to add layers after data is loaded
+    const addLayers = () => {
+      // Find first symbol layer for positioning
+      const firstSymbol = map
+        .getStyle()
+        .layers?.find((l) => l.type === "symbol")?.id;
+
+      // Add roadless fill layer
+      if (!map.getLayer("roadless-fill")) {
+        map.addLayer(
+          {
+            id: "roadless-fill",
+            type: "fill",
+            source: "roadless-src",
+            filter: ["==", ["geometry-type"], "Polygon"],
+            paint: {
+              "fill-color": OVERLAY_COLOR,
+              "fill-opacity": FILL_OPACITY,
+              "fill-translate": [0, 0],
+              "fill-translate-anchor": "map",
+            },
           },
-        },
-        firstSymbol
-      );
-    }
+          firstSymbol
+        );
+      }
 
-    // Add roadless outline layer
-    if (!map.getLayer("roadless-line")) {
-      map.addLayer(
-        {
-          id: "roadless-line",
-          type: "line",
-          source: "roadless-src",
-          filter: [
-            "any",
-            ["==", ["geometry-type"], "LineString"],
-            ["==", ["geometry-type"], "Polygon"],
-          ],
-          paint: {
-            "line-color": OVERLAY_COLOR,
-            "line-width": 1.5,
-            "line-translate": [0, 0],
-            "line-translate-anchor": "map",
+      // Add roadless outline layer
+      if (!map.getLayer("roadless-line")) {
+        map.addLayer(
+          {
+            id: "roadless-line",
+            type: "line",
+            source: "roadless-src",
+            filter: [
+              "any",
+              ["==", ["geometry-type"], "LineString"],
+              ["==", ["geometry-type"], "Polygon"],
+            ],
+            paint: {
+              "line-color": OVERLAY_COLOR,
+              "line-width": 1.5,
+              "line-translate": [0, 0],
+              "line-translate-anchor": "map",
+            },
           },
-        },
-        firstSymbol
-      );
-    }
+          firstSymbol
+        );
+      }
+    };
+
+    // Load data and add layers
+    loadCombinedData().then(() => {
+      addLayers();
+    });
 
     // Create popup
     popupRef.current = new mapboxgl.Popup({
