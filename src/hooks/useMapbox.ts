@@ -51,7 +51,7 @@ export function useMapbox(
         // Add the DEM source as a terrain layer with consistent exaggeration across zooms
         mapRef.current.setTerrain({
           source: "mapbox-terrain",
-          exaggeration: 2.0,
+          exaggeration: 1.5,
         });
 
         // Add sky layer for enhanced 3D effect

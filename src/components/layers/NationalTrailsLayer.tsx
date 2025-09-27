@@ -66,14 +66,14 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
           id: "national-trails-labels",
           type: "symbol",
           source: "national-trails",
-          minzoom: 6, // Only show labels when zoomed in enough
+          minzoom: 8, // Only show labels when zoomed in enough
           layout: {
             "text-field": [
               "coalesce",
               ["get", "TRAIL_NAME"],
               ["get", "NAME"],
               ["get", "TRAIL"],
-              "Trail"
+              "Trail",
             ],
             "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
             "text-size": [
@@ -85,32 +85,33 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
               14,
               12,
               16,
-              14
+              14,
             ],
             "text-max-width": 8,
             "text-line-height": 1.2,
-            "text-letter-spacing": 0.1,
+            "text-letter-spacing": 0.25,
             "text-justify": "center",
             "text-anchor": "center",
             "text-padding": 2,
             "text-allow-overlap": false,
             "text-ignore-placement": false,
             "symbol-placement": "line",
+            "text-offset": [0, 1],
             "symbol-spacing": 200,
-            "symbol-avoid-edges": true
+            "symbol-avoid-edges": true,
           },
           paint: {
             "text-color": "#0b1f44",
             "text-halo-color": "#ffffff",
             "text-halo-width": 1,
             "text-halo-blur": 0.5,
-            "text-opacity": 1
-          }
+            "text-opacity": 1,
+          },
         },
         "national-trails-line" // Place labels above the line layer
       );
     }
-    
+
     // Create popup
     popupRef.current = new mapboxgl.Popup({
       closeButton: true,
