@@ -66,7 +66,7 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
           id: "national-trails-labels",
           type: "symbol",
           source: "national-trails",
-          minzoom: 8, // Only show labels when zoomed in enough
+          minzoom: 9, // Only show labels when zoomed in enough
           layout: {
             "text-field": [
               "coalesce",
@@ -89,7 +89,8 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
             ],
             "text-max-width": 8,
             "text-line-height": 1.2,
-            "text-letter-spacing": 0.25,
+            "text-letter-spacing": 0.1,
+            "text-max-angle": 30,
             "text-justify": "center",
             "text-anchor": "center",
             "text-padding": 2,
