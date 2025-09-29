@@ -18,7 +18,7 @@ import {
   PCTLayer,
   OregonTrailsLayer,
   NationalTrailsLayer,
-  // CongressionalDistrictsLayer,
+  CongressionalDistrictsLayer,
 } from "./layers";
 
 import MapTitle from "./MapTitle";
@@ -43,7 +43,6 @@ export default function MapView() {
     const m = map as mapboxgl.Map;
     m.addControl(new PitchControl(), "top-right");
     m.addControl(new SurveyControl(), "bottom-right");
-    // LegendControl is now a React component, so we don't add it as a Mapbox control
   }, [ready, map]);
 
   // Add sources/layers + behavior
@@ -121,12 +120,12 @@ export default function MapView() {
           {/* <OregonTrailsLayer map={map} ready={ready} /> */}
           <NationalTrailsLayer map={map} ready={ready} />
 
-          {/* <CongressionalDistrictsLayer
+          <CongressionalDistrictsLayer
             map={map}
             ready={ready}
             selectedDistrictId={selectedDistrictId}
             setSelectedDistrictId={setSelectedDistrictId}
-          /> */}
+          />
         </>
       )}
     </div>

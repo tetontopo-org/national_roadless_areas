@@ -20,7 +20,7 @@ export const CongressionalDistrictsLayer: React.FC<
     if (!map.getSource("congressional-districts")) {
       map.addSource("congressional-districts", {
         type: "geojson",
-        data: "/data/OR_Congressional_Districts.geojson",
+        data: "/data/all-cd-simple.json",
         generateId: true,
       });
     }
@@ -120,14 +120,24 @@ export const CongressionalDistrictsLayer: React.FC<
           any
         >;
 
-        // Set the selected district ID for visual feedback
-        const selectedDistrictNumber = props.DISTRICT || null;
-        setSelectedDistrictId(selectedDistrictNumber);
+        // Set the selected district ID for visual feedback using Office_ID
+        const selectedDistrictId = props.OFFICE_ID || null;
+        setSelectedDistrictId(selectedDistrictId);
 
         const representativeNameRaw =
-          props.LISTING_NA || "Unknown Representative";
+          props.LISTING_NAME || "Unknown Representative";
         const districtNumber = props.DISTRICT || "Unknown";
-        const party = props.Party || "Unknown";
+        const party = props.PARTY || "Unknown";
+        const officeId = props.OFFICE_ID || "Unknown";
+        
+        // Format Office_ID as "State-district" (e.g., "UT00" -> "UT-00")
+        let formattedOfficeId = officeId;
+        if (officeId !== "Unknown" && officeId.length >= 3) {
+          const state = officeId.substring(0, 2);
+          const district = officeId.substring(2);
+          formattedOfficeId = `${state}-${district}`;
+        }
+        
         const totalAcres = props.Acres
           ? props.Acres.toLocaleString("en-US")
           : "—";
@@ -150,19 +160,14 @@ export const CongressionalDistrictsLayer: React.FC<
           }
         }
 
-        // Format the representative name as "Rep. First Last (Party–OR-##)"
-        const formattedName = `Rep. ${formattedRepresentativeName} (${party}–OR-${districtNumber.padStart(
-          2,
-          "0"
-        )})`;
+        // Format the representative name as "Rep. First Last (Party–State-District)"
+        const formattedName = `Rep. ${formattedRepresentativeName} (${party}–${formattedOfficeId})`;
 
         const popupHTML = `
           <div style="padding: 8px;">
-            <h3 style="margin: 0 0 8px 0; color: #0b1f44; font-size: 16px;">Congressional District ${districtNumber}</h3>
+            <h3 style="margin: 0 0 8px 0; color: #0b1f44; font-size: 16px;">Congressional District ${formattedOfficeId}</h3>
             <p style="margin: 0 0 4px 0; color: #666; font-size: 14px;"><strong>Representative:</strong></p>
             <p style="margin: 0 0 4px 0; color: #666; font-size: 14px;">${formattedName}</p>
-            <p style="margin: 0 0 4px 0; color: #666; font-size: 12px;"><strong>Total Area:</strong> ${totalAcres} acres</p>
-            <p style="margin: 0; color: #666; font-size: 12px;"><strong>Roadless Areas:</strong> ${roadlessAcres} acres</p>
           </div>
         `;
 
@@ -209,7 +214,7 @@ export const CongressionalDistrictsLayer: React.FC<
         if (selectedDistrictId) {
           map.setPaintProperty("congressional-districts-fill", "fill-opacity", [
             "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
+            ["==", ["get", "OFFICE_ID"], selectedDistrictId],
             0.4, // Darker when selected
             0.1, // Very light shading when not selected
           ]);
@@ -227,14 +232,14 @@ export const CongressionalDistrictsLayer: React.FC<
         if (selectedDistrictId) {
           map.setPaintProperty("congressional-districts-line", "line-opacity", [
             "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
+            ["==", ["get", "OFFICE_ID"], selectedDistrictId],
             1.0, // Fully opaque when selected
             0.8, // Normal opacity when not selected
           ]);
 
           map.setPaintProperty("congressional-districts-line", "line-width", [
             "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
+            ["==", ["get", "OFFICE_ID"], selectedDistrictId],
             2.5, // Thicker when selected
             1.5, // Normal width when not selected
           ]);
