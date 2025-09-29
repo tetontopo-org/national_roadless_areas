@@ -23,52 +23,58 @@ export const RoadlessLayer: React.FC<LayerComponentProps> = ({
       });
     }
 
-    // Find first symbol layer for positioning
-    const firstSymbol = map
-      .getStyle()
-      .layers?.find((l) => l.type === "symbol")?.id;
+    // Function to add layers after data is loaded
+    const addLayers = () => {
+      // Find first symbol layer for positioning
+      const firstSymbol = map
+        .getStyle()
+        .layers?.find((l) => l.type === "symbol")?.id;
 
-    // Add roadless fill layer
-    if (!map.getLayer("roadless-fill")) {
-      map.addLayer(
-        {
-          id: "roadless-fill",
-          type: "fill",
-          source: "roadless-src",
-          filter: ["==", ["geometry-type"], "Polygon"],
-          paint: {
-            "fill-color": OVERLAY_COLOR,
-            "fill-opacity": FILL_OPACITY,
-            "fill-translate": [0, 0],
-            "fill-translate-anchor": "map",
+      // Add roadless fill layer
+      if (!map.getLayer("roadless-fill")) {
+        map.addLayer(
+          {
+            id: "roadless-fill",
+            type: "fill",
+            source: "roadless-src",
+            filter: ["==", ["geometry-type"], "Polygon"],
+            paint: {
+              "fill-color": OVERLAY_COLOR,
+              "fill-opacity": FILL_OPACITY,
+              "fill-translate": [0, 0],
+              "fill-translate-anchor": "map",
+            },
           },
-        },
-        firstSymbol
-      );
-    }
+          firstSymbol
+        );
+      }
 
-    // Add roadless outline layer
-    if (!map.getLayer("roadless-line")) {
-      map.addLayer(
-        {
-          id: "roadless-line",
-          type: "line",
-          source: "roadless-src",
-          filter: [
-            "any",
-            ["==", ["geometry-type"], "LineString"],
-            ["==", ["geometry-type"], "Polygon"],
-          ],
-          paint: {
-            "line-color": OVERLAY_COLOR,
-            "line-width": 1.5,
-            "line-translate": [0, 0],
-            "line-translate-anchor": "map",
+      // Add roadless outline layer
+      if (!map.getLayer("roadless-line")) {
+        map.addLayer(
+          {
+            id: "roadless-line",
+            type: "line",
+            source: "roadless-src",
+            filter: [
+              "any",
+              ["==", ["geometry-type"], "LineString"],
+              ["==", ["geometry-type"], "Polygon"],
+            ],
+            paint: {
+              "line-color": OVERLAY_COLOR,
+              "line-width": 1.5,
+              "line-translate": [0, 0],
+              "line-translate-anchor": "map",
+            },
           },
-        },
-        firstSymbol
-      );
-    }
+          firstSymbol
+        );
+      }
+    };
+
+    // Load data and add layers
+
 
     // Create popup
     popupRef.current = new mapboxgl.Popup({
