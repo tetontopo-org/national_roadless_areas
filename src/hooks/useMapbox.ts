@@ -5,8 +5,8 @@ import { CUSTOM_STYLE_OVERRIDES } from "../config";
 export function useMapbox(
   containerId: string,
   style: string,
-  center = [-100.6, 38.5] as [number, number],
-  zoom = 4.5
+  center = [-110.6, 41] as [number, number],
+  zoom = 5.25
 ) {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -19,7 +19,7 @@ export function useMapbox(
       style,
       center,
       zoom,
-      pitch: 0,
+      pitch: 35,
       bearing: 0,
     });
 

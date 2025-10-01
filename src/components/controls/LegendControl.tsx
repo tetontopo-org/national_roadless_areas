@@ -6,7 +6,7 @@ import {
   PCT_COLOR,
   OREGON_TRAILS_COLOR,
   NATIONAL_TRAILS_COLOR,
-  // CONGRESSIONAL_DISTRICTS_COLOR,
+  CONGRESSIONAL_DISTRICTS_COLOR,
 } from "../../config";
 
 interface LegendControlProps {
@@ -19,7 +19,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
     pct: true,
     oregonTrails: true,
     nationalTrails: true,
-    // congressionalDistricts: true,
+    congressionalDistricts: true,
   });
 
   const toggleLayer = (layerName: keyof typeof layerVisibility) => {
@@ -51,8 +51,8 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
         return ["oregon-trails-line"];
       case "nationalTrails":
         return ["national-trails-line", "national-trails-labels"];
-      // case "congressionalDistricts":
-      //   return ["congressional-districts-fill", "congressional-districts-line"];
+      case "congressionalDistricts":
+        return ["congressional-districts-fill", "congressional-districts-line"];
       default:
         return [];
     }
@@ -211,7 +211,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
           </span>
         </div> */}
 
-        {/* <div
+        <div
           className={`legend-item ${
             !layerVisibility.congressionalDistricts
               ? "legend-item--disabled"
@@ -249,7 +249,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
           <span style={{ marginLeft: "auto", fontSize: "10px", color: "#666" }}>
             {layerVisibility.congressionalDistricts ? "●" : "○"}
           </span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

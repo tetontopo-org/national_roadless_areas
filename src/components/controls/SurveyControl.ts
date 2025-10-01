@@ -11,7 +11,7 @@ export class SurveyControl implements mapboxgl.IControl {
     a.href = "https://sc.org/roadless";
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-    a.textContent = "Take Action";
+    a.textContent = "Take Action!";
     container.appendChild(a);
     this._container = container;
     return container;
