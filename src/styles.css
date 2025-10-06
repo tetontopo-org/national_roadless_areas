@@ -671,15 +671,31 @@ body {
     max-width: 400px;
   }
 
-  /* Hide Legend on mobile */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend mobile-friendly */
+  .legend-card {
+    min-width: 160px;
+    padding: 8px 10px;
+    font-size: 11px;
+    /* Ensure legend is touch-friendly */
+    touch-action: manipulation;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 20px !important;
+  .legend-item {
+    margin: 4px 0;
+    gap: 6px;
+    /* Make touch targets larger on mobile */
+    min-height: 32px;
+    padding: 4px 0;
+  }
+
+  .legend-swatch {
+    width: 28px;
+    height: 14px;
+  }
+
+  /* Ensure legend doesn't overlap with other controls on mobile */
+  .legend-card {
+    max-width: calc(100vw - 24px);
   }
 }
 
@@ -711,15 +727,21 @@ body {
     min-width: 150px;
   }
 
-  /* Hide Legend on smaller embedded views */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend smaller for embedded views */
+  .legend-card {
+    min-width: 150px;
+    padding: 6px 8px;
+    font-size: 10px;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 20px !important;
+  .legend-item {
+    margin: 3px 0;
+    gap: 5px;
+  }
+
+  .legend-swatch {
+    width: 24px;
+    height: 12px;
   }
 }
 
@@ -739,14 +761,20 @@ body {
     min-width: 130px;
   }
 
-  /* Hide Legend on very small embedded views */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend very compact for very small embedded views */
+  .legend-card {
+    min-width: 140px;
+    padding: 4px 6px;
+    font-size: 9px;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 20px !important;
+  .legend-item {
+    margin: 2px 0;
+    gap: 4px;
+  }
+
+  .legend-swatch {
+    width: 20px;
+    height: 10px;
   }
 }
