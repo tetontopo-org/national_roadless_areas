@@ -19,7 +19,7 @@ export const LegendControl: React.FC<LegendControlProps> = ({ map }) => {
     pct: true,
     oregonTrails: true,
     nationalTrails: true,
-    congressionalDistricts: true,
+    congressionalDistricts: false, // Start hidden
   });
 
   const toggleLayer = (layerName: keyof typeof layerVisibility) => {
