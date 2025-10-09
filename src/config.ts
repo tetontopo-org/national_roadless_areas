@@ -1,4 +1,5 @@
-export const MAPBOX_STYLE_URL = "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy";
+export const MAPBOX_STYLE_URL =
+  "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy";
 
 // Subtle customizations to tone down the bright greens in outdoors basemap
 export const CUSTOM_STYLE_OVERRIDES = {
@@ -7,6 +8,8 @@ export const CUSTOM_STYLE_OVERRIDES = {
   landuse: "#d9e3d4", // Pale muted green for general landuse
   park: "#c8d7b8", // Soft olive green, matches Google Maps parks
   forest: "#b5cfa5", // Slightly deeper muted green for forest
+  nationalPark: "#11452f", // lighter green for national parks and wilderness
+  nationalForest: "#0A5C36", // Darker green for national forests 11452f
 };
 
 // Styling

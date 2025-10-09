@@ -109,14 +109,32 @@ function applyCustomStyleColors(map: mapboxgl.Map) {
       style.layers.forEach((layer) => {
         const layerId = layer.id;
 
-        // Only tone down the bright greens, keep everything else as-is
         if (layer.type === "fill") {
+          // Check for national parks and wilderness (more specific check)
           if (
-            layerId.includes("natural") ||
-            layerId.includes("landuse") ||
-            layerId.includes("park") ||
-            layerId.includes("forest")
+            layerId.includes("national-park") ||
+            layerId.includes("national_park") ||
+            layerId.includes("nationalpark") ||
+            layerId.includes("wilderness")
           ) {
+            map.setPaintProperty(layerId, "fill-color", colors.nationalPark);
+          }
+          // Check for national forests
+          else if (
+            layerId.includes("national-forest") ||
+            layerId.includes("national_forest") ||
+            layerId.includes("nationalforest")
+          ) {
+            map.setPaintProperty(layerId, "fill-color", colors.nationalForest);
+          }
+          // Then check for general park/forest (less specific)
+          else if (layerId.includes("park")) {
+            map.setPaintProperty(layerId, "fill-color", colors.park);
+          } else if (layerId.includes("forest")) {
+            map.setPaintProperty(layerId, "fill-color", colors.forest);
+          }
+          // General natural/landuse areas
+          else if (layerId.includes("natural") || layerId.includes("landuse")) {
             map.setPaintProperty(layerId, "fill-color", colors.natural);
           }
         }
