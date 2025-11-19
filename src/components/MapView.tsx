@@ -35,7 +35,10 @@ export default function MapView() {
     null
   );
 
-  const { map, ready } = useMapbox("map", MAPBOX_STYLE_URL);
+  const { map, ready } = useMapbox(
+    "map",
+    "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy"
+  );
 
   // Attach custom controls once
   useEffect(() => {

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import { CUSTOM_STYLE_OVERRIDES } from "../config";
 
 export function useMapbox(
   containerId: string,
@@ -74,7 +73,7 @@ export function useMapbox(
         });
 
         // Apply custom style color overrides
-        applyCustomStyleColors(mapRef.current);
+        //applyCustomStyleColors(mapRef.current);
       }
     }
 
@@ -97,34 +96,4 @@ export function useMapbox(
   }, [containerId, style, center.toString(), zoom]);
 
   return { map: mapRef.current, ready };
-}
-
-// Function to apply custom style colors
-function applyCustomStyleColors(map: mapboxgl.Map) {
-  try {
-    const colors = CUSTOM_STYLE_OVERRIDES;
-    const style = map.getStyle();
-
-    if (style.layers) {
-      style.layers.forEach((layer) => {
-        const layerId = layer.id;
-
-        // Only tone down the bright greens, keep everything else as-is
-        if (layer.type === "fill") {
-          if (
-            layerId.includes("natural") ||
-            layerId.includes("landuse") ||
-            layerId.includes("park") ||
-            layerId.includes("forest")
-          ) {
-            map.setPaintProperty(layerId, "fill-color", colors.natural);
-          }
-        }
-      });
-    }
-
-    console.log("Green colors toned down successfully");
-  } catch (error) {
-    console.warn("Error applying custom style colors:", error);
-  }
 }

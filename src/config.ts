@@ -1,13 +1,14 @@
-export const MAPBOX_STYLE_URL = "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy";
+export const MAPBOX_STYLE_URL =
+  "mapbox://styles/tetontopo/cmfaat97f002e01sofj0z6lqy";
 
 // Subtle customizations to tone down the bright greens in outdoors basemap
-export const CUSTOM_STYLE_OVERRIDES = {
-  // Just tone down the intense greens to be more neutral
-  natural: "#e6eae4", // Very light gray-green (natural areas, hills)
-  landuse: "#d9e3d4", // Pale muted green for general landuse
-  park: "#c8d7b8", // Soft olive green, matches Google Maps parks
-  forest: "#b5cfa5", // Slightly deeper muted green for forest
-};
+// export const CUSTOM_STYLE_OVERRIDES = {
+//   // Just tone down the intense greens to be more neutral
+//   natural: "#e6eae4", // Very light gray-green (natural areas, hills)
+//   landuse: "#d9e3d4", // Pale muted green for general landuse
+//   park: "#c8d7b8", // Soft olive green, matches Google Maps parks
+//   forest: "#b5cfa5", // Slightly deeper muted green for forest
+// };
 
 // Styling
 export const OVERLAY_COLOR = "#EB9200 ";
