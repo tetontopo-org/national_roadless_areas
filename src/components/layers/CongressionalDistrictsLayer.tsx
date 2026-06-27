@@ -20,7 +20,7 @@ export const CongressionalDistrictsLayer: React.FC<
     if (!map.getSource("congressional-districts")) {
       map.addSource("congressional-districts", {
         type: "geojson",
-        data: "/data/OR_Congressional_Districts.geojson",
+        data: "/data/all-cd-simple.json",
         generateId: true,
       });
     }
@@ -31,11 +31,15 @@ export const CongressionalDistrictsLayer: React.FC<
         id: "congressional-districts-line",
         type: "line",
         source: "congressional-districts",
-        layout: { "line-cap": "round", "line-join": "round" },
+        layout: {
+          "line-cap": "round",
+          "line-join": "round",
+          visibility: "none", // Start hidden
+        },
         paint: {
           "line-color": CONGRESSIONAL_DISTRICTS_COLOR,
           "line-opacity": 0.8,
-          "line-width": 1.5,
+          "line-width": 0.75,
           "line-translate": [0, 0],
           "line-translate-anchor": "map",
         },
@@ -49,7 +53,10 @@ export const CongressionalDistrictsLayer: React.FC<
           id: "congressional-districts-fill",
           type: "fill",
           source: "congressional-districts",
-          maxzoom: 8,
+          //maxzoom: 8,
+          layout: {
+            visibility: "none", // Start hidden
+          },
           paint: {
             "fill-color": CONGRESSIONAL_DISTRICTS_COLOR,
             "fill-opacity": 0.1,
@@ -120,14 +127,24 @@ export const CongressionalDistrictsLayer: React.FC<
           any
         >;
 
-        // Set the selected district ID for visual feedback
-        const selectedDistrictNumber = props.DISTRICT || null;
-        setSelectedDistrictId(selectedDistrictNumber);
+        // Set the selected district ID for visual feedback using Office_ID
+        const selectedDistrictId = props.OFFICE_ID || null;
+        setSelectedDistrictId(selectedDistrictId);
 
         const representativeNameRaw =
-          props.LISTING_NA || "Unknown Representative";
+          props.LISTING_NAME || "Unknown Representative";
         const districtNumber = props.DISTRICT || "Unknown";
-        const party = props.Party || "Unknown";
+        const party = props.PARTY || "Unknown";
+        const officeId = props.OFFICE_ID || "Unknown";
+
+        // Format Office_ID as "State-district" (e.g., "UT00" -> "UT-00")
+        let formattedOfficeId = officeId;
+        if (officeId !== "Unknown" && officeId.length >= 3) {
+          const state = officeId.substring(0, 2);
+          const district = officeId.substring(2);
+          formattedOfficeId = `${state}-${district}`;
+        }
+
         const totalAcres = props.Acres
           ? props.Acres.toLocaleString("en-US")
           : "—";
@@ -150,19 +167,14 @@ export const CongressionalDistrictsLayer: React.FC<
           }
         }
 
-        // Format the representative name as "Rep. First Last (Party–OR-##)"
-        const formattedName = `Rep. ${formattedRepresentativeName} (${party}–OR-${districtNumber.padStart(
-          2,
-          "0"
-        )})`;
+        // Format the representative name as "Rep. First Last (Party–State-District)"
+        const formattedName = `Rep. ${formattedRepresentativeName} (${party}–${formattedOfficeId})`;
 
         const popupHTML = `
           <div style="padding: 8px;">
-            <h3 style="margin: 0 0 8px 0; color: #0b1f44; font-size: 16px;">Congressional District ${districtNumber}</h3>
+            <h3 style="margin: 0 0 8px 0; color: #0b1f44; font-size: 16px;">Congressional District ${formattedOfficeId}</h3>
             <p style="margin: 0 0 4px 0; color: #666; font-size: 14px;"><strong>Representative:</strong></p>
             <p style="margin: 0 0 4px 0; color: #666; font-size: 14px;">${formattedName}</p>
-            <p style="margin: 0 0 4px 0; color: #666; font-size: 12px;"><strong>Total Area:</strong> ${totalAcres} acres</p>
-            <p style="margin: 0; color: #666; font-size: 12px;"><strong>Roadless Areas:</strong> ${roadlessAcres} acres</p>
           </div>
         `;
 
@@ -200,67 +212,41 @@ export const CongressionalDistrictsLayer: React.FC<
   useEffect(() => {
     if (!ready || !map) return;
 
-    const currentZoom = map.getZoom();
-
-    // Only apply visual feedback when fill layer is visible (zoom <= 8)
-    if (currentZoom <= 8) {
-      // Update the congressional districts fill layer
-      if (map.getLayer("congressional-districts-fill")) {
-        if (selectedDistrictId) {
-          map.setPaintProperty("congressional-districts-fill", "fill-opacity", [
-            "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
-            0.4, // Darker when selected
-            0.1, // Very light shading when not selected
-          ]);
-        } else {
-          map.setPaintProperty(
-            "congressional-districts-fill",
-            "fill-opacity",
-            0.1
-          );
-        }
-      }
-
-      // Update the congressional districts line layer
-      if (map.getLayer("congressional-districts-line")) {
-        if (selectedDistrictId) {
-          map.setPaintProperty("congressional-districts-line", "line-opacity", [
-            "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
-            1.0, // Fully opaque when selected
-            0.8, // Normal opacity when not selected
-          ]);
-
-          map.setPaintProperty("congressional-districts-line", "line-width", [
-            "case",
-            ["==", ["get", "DISTRICT"], selectedDistrictId],
-            2.5, // Thicker when selected
-            1.5, // Normal width when not selected
-          ]);
-        } else {
-          map.setPaintProperty(
-            "congressional-districts-line",
-            "line-opacity",
-            0.8
-          );
-          map.setPaintProperty(
-            "congressional-districts-line",
-            "line-width",
-            1.5
-          );
-        }
-      }
-    } else {
-      // When zoom > 8, reset to default styling
-      if (map.getLayer("congressional-districts-fill")) {
+    // Update the congressional districts fill layer
+    if (map.getLayer("congressional-districts-fill")) {
+      if (selectedDistrictId) {
+        map.setPaintProperty("congressional-districts-fill", "fill-opacity", [
+          "case",
+          ["==", ["get", "OFFICE_ID"], selectedDistrictId],
+          0.4, // Darker when selected
+          0.1, // Very light shading when not selected
+        ]);
+      } else {
         map.setPaintProperty(
           "congressional-districts-fill",
           "fill-opacity",
           0.1
         );
       }
-      if (map.getLayer("congressional-districts-line")) {
+    }
+
+    // Update the congressional districts line layer
+    if (map.getLayer("congressional-districts-line")) {
+      if (selectedDistrictId) {
+        map.setPaintProperty("congressional-districts-line", "line-opacity", [
+          "case",
+          ["==", ["get", "OFFICE_ID"], selectedDistrictId],
+          1.0, // Fully opaque when selected
+          0.8, // Normal opacity when not selected
+        ]);
+
+        map.setPaintProperty("congressional-districts-line", "line-width", [
+          "case",
+          ["==", ["get", "OFFICE_ID"], selectedDistrictId],
+          2.5, // Thicker when selected
+          1.5, // Normal width when not selected
+        ]);
+      } else {
         map.setPaintProperty(
           "congressional-districts-line",
           "line-opacity",

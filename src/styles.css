@@ -5,7 +5,13 @@ body,
 }
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
 }
 
@@ -49,7 +55,7 @@ body {
 
 .survey-control {
   position: absolute;
-  bottom: 110px;
+  bottom: 150px;
   right: 12px;
   z-index: 3;
   pointer-events: none;
@@ -61,7 +67,13 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  font: 600 17px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    600 17px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   padding: 12px 16px;
   border-radius: 8px;
@@ -83,7 +95,13 @@ body {
   color: #404040;
   border: 1px solid #ccc;
   cursor: pointer;
-  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   padding: 8px;
   border-radius: 4px;
@@ -198,7 +216,13 @@ body {
   padding: 12px 40px 12px 16px;
   border: none;
   background: transparent;
-  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   color: #111827;
   outline: none;
@@ -309,7 +333,13 @@ body {
 }
 
 .search-result-name {
-  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   color: #111827;
   font-weight: 500;
@@ -320,7 +350,13 @@ body {
 }
 
 .search-result-category {
-  font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    12px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   color: #6b7280;
   white-space: nowrap;
@@ -331,7 +367,13 @@ body {
 .search-no-results {
   padding: 16px;
   text-align: center;
-  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   color: #6b7280;
 }
@@ -372,7 +414,13 @@ body {
   color: #404040;
   border: 1px solid #ccc;
   cursor: pointer;
-  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   padding: 8px 12px;
   border-radius: 4px;
@@ -488,7 +536,13 @@ body {
 
 .sources-popup-content {
   padding: 16px;
-  font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    14px/1.5 system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   color: #374151;
 }
@@ -526,7 +580,13 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 10px 12px;
-  font: 12px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+  font:
+    12px/1.35 system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
     sans-serif;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   min-width: 180px;
@@ -671,15 +731,31 @@ body {
     max-width: 400px;
   }
 
-  /* Hide Legend on mobile */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend mobile-friendly */
+  .legend-card {
+    min-width: 160px;
+    padding: 8px 10px;
+    font-size: 11px;
+    /* Ensure legend is touch-friendly */
+    touch-action: manipulation;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 12px !important;
+  .legend-item {
+    margin: 4px 0;
+    gap: 6px;
+    /* Make touch targets larger on mobile */
+    min-height: 32px;
+    padding: 4px 0;
+  }
+
+  .legend-swatch {
+    width: 28px;
+    height: 14px;
+  }
+
+  /* Ensure legend doesn't overlap with other controls on mobile */
+  .legend-card {
+    max-width: calc(100vw - 24px);
   }
 }
 
@@ -711,15 +787,21 @@ body {
     min-width: 150px;
   }
 
-  /* Hide Legend on smaller embedded views */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend smaller for embedded views */
+  .legend-card {
+    min-width: 150px;
+    padding: 6px 8px;
+    font-size: 10px;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 20px !important;
+  .legend-item {
+    margin: 3px 0;
+    gap: 5px;
+  }
+
+  .legend-swatch {
+    width: 24px;
+    height: 12px;
   }
 }
 
@@ -739,14 +821,20 @@ body {
     min-width: 130px;
   }
 
-  /* Hide Legend on very small embedded views */
-  .mapboxgl-ctrl-group:has(.legend-card),
-  .mapboxgl-ctrl:has(.legend-card) {
-    display: none !important;
+  /* Make legend very compact for very small embedded views */
+  .legend-card {
+    min-width: 140px;
+    padding: 4px 6px;
+    font-size: 9px;
   }
 
-  /* Move survey button to bottom-right when legend is hidden */
-  .survey-control {
-    bottom: 20px !important;
+  .legend-item {
+    margin: 2px 0;
+    gap: 4px;
+  }
+
+  .legend-swatch {
+    width: 20px;
+    height: 10px;
   }
 }

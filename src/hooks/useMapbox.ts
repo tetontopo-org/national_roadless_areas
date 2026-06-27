@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import { CUSTOM_STYLE_OVERRIDES } from "../config";
 
 export function useMapbox(
   containerId: string,
   style: string,
-  center = [-112.6, 39.5] as [number, number],
-  zoom = 5
+  center = [-110.6, 41] as [number, number],
+  zoom = 5.25,
 ) {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -19,7 +18,7 @@ export function useMapbox(
       style,
       center,
       zoom,
-      pitch: 45,
+      pitch: 35,
       bearing: 0,
     });
 
@@ -30,10 +29,10 @@ export function useMapbox(
         showZoom: true,
         visualizePitch: true,
       }),
-      "top-right"
+      "top-right",
     );
     mapRef.current.addControl(
-      new mapboxgl.ScaleControl({ maxWidth: 150, unit: "imperial" })
+      new mapboxgl.ScaleControl({ maxWidth: 150, unit: "imperial" }),
     );
 
     function onLoad() {
@@ -74,14 +73,14 @@ export function useMapbox(
         });
 
         // Apply custom style color overrides
-        applyCustomStyleColors(mapRef.current);
+        //applyCustomStyleColors(mapRef.current);
       }
     }
 
     function onError(e: any) {
       if (e?.error?.status || e?.error?.message)
         console.warn(
-          `Map error: ${e.error.status || ""} ${e.error.message || ""}`
+          `Map error: ${e.error.status || ""} ${e.error.message || ""}`,
         );
     }
 
@@ -97,34 +96,4 @@ export function useMapbox(
   }, [containerId, style, center.toString(), zoom]);
 
   return { map: mapRef.current, ready };
-}
-
-// Function to apply custom style colors
-function applyCustomStyleColors(map: mapboxgl.Map) {
-  try {
-    const colors = CUSTOM_STYLE_OVERRIDES;
-    const style = map.getStyle();
-
-    if (style.layers) {
-      style.layers.forEach((layer) => {
-        const layerId = layer.id;
-
-        // Only tone down the bright greens, keep everything else as-is
-        if (layer.type === "fill") {
-          if (
-            layerId.includes("natural") ||
-            layerId.includes("landuse") ||
-            layerId.includes("park") ||
-            layerId.includes("forest")
-          ) {
-            map.setPaintProperty(layerId, "fill-color", colors.natural);
-          }
-        }
-      });
-    }
-
-    console.log("Green colors toned down successfully");
-  } catch (error) {
-    console.warn("Error applying custom style colors:", error);
-  }
 }
