@@ -5,13 +5,7 @@ body,
 }
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
 }
 
@@ -67,13 +61,7 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  font:
-    600 17px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 600 17px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   padding: 12px 16px;
   border-radius: 8px;
@@ -95,13 +83,7 @@ body {
   color: #404040;
   border: 1px solid #ccc;
   cursor: pointer;
-  font:
-    14px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   padding: 8px;
   border-radius: 4px;
@@ -216,13 +198,7 @@ body {
   padding: 12px 40px 12px 16px;
   border: none;
   background: transparent;
-  font:
-    14px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   color: #111827;
   outline: none;
@@ -333,13 +309,7 @@ body {
 }
 
 .search-result-name {
-  font:
-    14px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   color: #111827;
   font-weight: 500;
@@ -350,13 +320,7 @@ body {
 }
 
 .search-result-category {
-  font:
-    12px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 12px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   color: #6b7280;
   white-space: nowrap;
@@ -367,13 +331,7 @@ body {
 .search-no-results {
   padding: 16px;
   text-align: center;
-  font:
-    14px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   color: #6b7280;
 }
@@ -414,13 +372,7 @@ body {
   color: #404040;
   border: 1px solid #ccc;
   cursor: pointer;
-  font:
-    14px system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   padding: 8px 12px;
   border-radius: 4px;
@@ -536,13 +488,7 @@ body {
 
 .sources-popup-content {
   padding: 16px;
-  font:
-    14px/1.5 system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   color: #374151;
 }
@@ -580,13 +526,7 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 10px 12px;
-  font:
-    12px/1.35 system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
+  font: 12px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     sans-serif;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   min-width: 180px;
@@ -778,7 +718,7 @@ body {
   }
 
   .survey-control {
-    bottom: 100px;
+    bottom: 140px;
   }
 
   .survey-btn {

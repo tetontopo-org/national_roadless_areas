@@ -33,7 +33,6 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
           layout: {
             "line-cap": "round",
             "line-join": "round",
-            "symbol-elevation-reference": "hd-road-markup",
           },
           paint: {
             "line-color": NATIONAL_TRAILS_COLOR,
@@ -41,26 +40,22 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
               "interpolate",
               ["linear"],
               ["zoom"],
-              6,
-              1.5,
-              8,
-              2.0,
               10,
-              2.5,
+              0.8,
               12,
-              3.0,
+              1.5,
               14,
-              3.5,
+              2.5,
               16,
-              4.5,
+              4,
             ],
             "line-opacity": 0.9,
-            "line-translate": [0, -1],
+            "line-translate": [0, 0],
             "line-translate-anchor": "map",
             "line-dasharray": [2, 2],
           },
         },
-        "roadless-fill" // Place lines above fill layer
+        "roadless-fill"
       );
     }
 
@@ -91,7 +86,6 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
               12,
               16,
               14,
-              14,
             ],
             "text-max-width": 8,
             "text-line-height": 1.2,
@@ -108,18 +102,16 @@ export const NationalTrailsLayer: React.FC<LayerComponentProps> = ({
             "symbol-avoid-edges": true,
           },
           paint: {
-            "text-color": "#000000",
+            "text-color": "#0b1f44",
             "text-halo-color": "#ffffff",
             "text-halo-width": 1,
             "text-halo-blur": 0.5,
             "text-opacity": 1,
           },
-          
         },
         "national-trails-line" // Place labels above the line layer
       );
     }
-
 
     // Create popup
     popupRef.current = new mapboxgl.Popup({

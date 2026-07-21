@@ -5,7 +5,7 @@ export function useMapbox(
   containerId: string,
   style: string,
   center = [-110.6, 41] as [number, number],
-  zoom = 5.25,
+  zoom = 5.25
 ) {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [ready, setReady] = useState(false);
@@ -29,10 +29,10 @@ export function useMapbox(
         showZoom: true,
         visualizePitch: true,
       }),
-      "top-right",
+      "top-right"
     );
     mapRef.current.addControl(
-      new mapboxgl.ScaleControl({ maxWidth: 150, unit: "imperial" }),
+      new mapboxgl.ScaleControl({ maxWidth: 150, unit: "imperial" })
     );
 
     function onLoad() {
@@ -80,7 +80,7 @@ export function useMapbox(
     function onError(e: any) {
       if (e?.error?.status || e?.error?.message)
         console.warn(
-          `Map error: ${e.error.status || ""} ${e.error.message || ""}`,
+          `Map error: ${e.error.status || ""} ${e.error.message || ""}`
         );
     }
 
