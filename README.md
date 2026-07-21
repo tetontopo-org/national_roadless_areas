@@ -1,12 +1,12 @@
-# Oregon Roadless Areas Map
+# National Roadless Areas Map
 
-An interactive web map showing Oregon's roadless areas, trails, and congressional districts. Built with React, TypeScript, and Mapbox GL JS.
+An interactive web map showing national roadless areas, trails, and congressional districts. Built with React, TypeScript, and Mapbox GL JS.
 
 ## Features
 
-- **Interactive Map**: Explore Oregon's roadless areas with detailed information
+- **Interactive Map**: Explore national roadless areas with detailed information
 - **Search Functionality**: Search for cities, addresses, rivers, mountains, and other POIs using Mapbox's Geocoding API
-- **Trail Information**: View Pacific Crest Trail and Oregon trails with detailed popups
+- **Trail Information**: View Pacific Crest Trail and national trails with detailed popups
 - **Congressional Districts**: Click on districts to see representative information and roadless area statistics
 - **3D Terrain**: Toggle between 2D and 3D terrain views
 - **Responsive Design**: Works on desktop and mobile devices
@@ -15,7 +15,7 @@ An interactive web map showing Oregon's roadless areas, trails, and congressiona
 
 The search bar allows you to find and navigate to various points of interest:
 
-- **Cities and Towns**: Search for Oregon cities like "Portland", "Eugene", "Bend"
+- **Cities and Towns**: Search for national cities like "Portland", "Eugene", "Bend"
 - **Natural Features**: Find mountains, rivers, lakes, and parks
 - **Addresses**: Search for specific addresses
 - **Neighborhoods**: Discover local areas and communities
@@ -27,7 +27,7 @@ The search bar allows you to find and navigate to various points of interest:
 3. Select from the dropdown results
 4. The map will automatically fly to the selected location
 
-The search is optimized for Oregon and includes:
+The search is optimized for national and includes:
 
 - Debounced input for better performance
 - Keyboard navigation (arrow keys, Enter, Escape)
